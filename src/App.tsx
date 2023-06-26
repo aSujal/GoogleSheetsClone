@@ -1,12 +1,14 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import Cell from "./compenents/Cell/Cell";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Hello</h1>
-    </div>
+    <>
+      <Cell cellid="A1">A1</Cell>
+      <Cell cellid="B2">B2</Cell>
+    </>
   );
 }
 
