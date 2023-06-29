@@ -10,12 +10,17 @@ import { atom, useRecoilState } from "recoil";
 import classes from "./Cell.module.css";
 import { CellValueState } from "../../store/CellValueState";
 
+export const CELL_WIDTH = 100;
+export const CELL_HEIGHT = 25;
+
 export type CellProps = {
   children?: string;
   cellid: string;
 };
 const Cell: FunctionComponent<CellProps> = (props) => {
-  const [cellValue, setCellValue] = useRecoilState<string>(CellValueState);
+  const [cellValue, setCellValue] = useRecoilState<string>(
+    CellValueState(props.cellid)
+  );
 
   const [isEditMode, setIsEditMode] = useState(false);
   const inputRef = useRef(null); //to set the reference using ref={inputRef} to this input object this allows for direct access to dom properties

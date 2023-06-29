@@ -1,21 +1,29 @@
 import React, { ComponentType, FunctionComponent } from "react";
 import Row from "../Row/Row";
 import Column from "../Column/Column";
-import Cell from "../Cell/Cell";
+import Cell, { CELL_HEIGHT, CELL_WIDTH } from "../Cell/Cell";
+import { useRecoilValue } from "recoil";
+import { SheetSizeState } from "../../store/SheetSizeState";
 
 export type SheetProps = {};
 
 const Sheet: FunctionComponent<SheetProps> = (props) => {
+  const sheetSize = useRecoilValue(SheetSizeState);
+  const numberOfColumns = sheetSize.width / CELL_WIDTH;
+  const numberOfRows = sheetSize.height / CELL_HEIGHT;
   return (
     <div>
       <table>
         <tbody>
-          <Row>
-            <Column>
-              <Cell cellid="Test">Hello</Cell>
-              <Cell cellid="Test2">Hellos</Cell>
-            </Column>
-          </Row>
+          {[...Array(numberOfRows)].map((row, rowIndex) => (
+            <Row key={rowIndex}>
+              {[...Array(numberOfColumns)].map((column, columnIndex) => (
+                <Column key={columnIndex}>
+                  <Cell cellid={`${rowIndex},${columnIndex}`} />
+                </Column>
+              ))}
+            </Row>
+          ))}
         </tbody>
       </table>
     </div>
