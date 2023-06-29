@@ -11,7 +11,7 @@ import classes from "./Cell.module.css";
 import { CellValueState } from "../../store/CellValueState";
 
 export type CellProps = {
-  children: string;
+  children?: string;
   cellid: string;
 };
 const Cell: FunctionComponent<CellProps> = (props) => {
