@@ -1,14 +1,16 @@
-import React, {
+import {
   ChangeEvent,
-  ComponentType,
+  Children,
   FunctionComponent,
+  KeyboardEvent,
   useEffect,
   useRef,
   useState,
 } from "react";
 import { useRecoilState } from "recoil";
-import Style from "./Cell.module.css";
+import style from "./Cell.module.css";
 import { CellValueState } from "../../store/CellValueState";
+import { ActiveCellState } from "../../store/ActiveCellState";
 
 export const CELL_WIDTH = 100;
 export const CELL_HEIGHT = 20;
@@ -25,10 +27,17 @@ const Cell: FunctionComponent<CellProps> = (props) => {
   const [isEditMode, setIsEditMode] = useState(false);
   const inputRef = useRef(null); //to set the reference using ref={inputRef} to this input object this allows for direct access to dom properties
 
+  const [act, setActiveCell] = useRecoilState(ActiveCellState);
+
   //functions to change from input to label and label to input
-  const changeLabelToInput = () => setIsEditMode(true);
+  const changeLabelToInput = () => {
+    setIsEditMode(true);
+    setActiveCell(props.cellid);
+    console.log(act);
+  };
   const changeInputToLabel = () => setIsEditMode(false);
 
+  //called on text change updates the state of the cell
   const updateCellValueState = (event: ChangeEvent<HTMLInputElement>) =>
     setCellValue(event.target.value);
 
@@ -38,26 +47,33 @@ const Cell: FunctionComponent<CellProps> = (props) => {
   const onClickOutsideInputHandler = (event: MouseEvent) => {
     if ((event.target as HTMLElement)?.dataset?.cellId !== props.cellid) {
       changeInputToLabel();
+    } else {
     }
   };
+
+  const onDefocusInputHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      setIsEditMode(false);
+    }
+  };
+
   //the useEffect hook is called, and it adds an event listener for the "click" event on the entire web page
   useEffect(() => {
-    document.addEventListener("click", onClickOutsideInputHandler);
-
     return document.addEventListener("click", onClickOutsideInputHandler);
   });
 
   return isEditMode ? (
     <input
-      className={Style.CellInput}
+      className={style.CellInput}
       ref={inputRef}
       data-cell-id={props.cellid}
       value={cellValue}
       onChange={updateCellValueState}
+      onKeyDown={onDefocusInputHandler}
     />
   ) : (
     <div
-      className={Style.CellLabel}
+      className={style.CellLabel}
       data-cell-id={props.cellid}
       onClick={changeLabelToInput}
     >
