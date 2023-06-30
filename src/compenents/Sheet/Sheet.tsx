@@ -10,7 +10,7 @@ export type SheetProps = {};
 
 const Sheet: FunctionComponent<SheetProps> = (props) => {
   const numberOfColumns = 26;
-  const numberOfRows = 30;
+  const numberOfRows = 50;
   const alphabeticalIndices = Array.from(
     { length: numberOfColumns },
     (_, index) => String.fromCharCode(65 + index)
@@ -25,7 +25,8 @@ const Sheet: FunctionComponent<SheetProps> = (props) => {
         <thead>
           <tr>
             {/* Render alphabetical indices */}
-            <th></th> {/* Empty cell in top-left corner */}
+            <th> </th>
+            {/* Empty cell in top-left corner */}
             {alphabeticalIndices.map((letter) => (
               <th
                 key={letter}
@@ -44,15 +45,15 @@ const Sheet: FunctionComponent<SheetProps> = (props) => {
           {numericalIndices.map((rowIndex) => (
             <Row key={rowIndex}>
               <td
+                //highlight rownumber for activecell
                 className={
-                  activeCell.substring(1, activeCell.length) === rowIndex // only checks for row
+                  activeCell.substring(1) === rowIndex // only checks for row
                     ? style.RowNumberActive
                     : style.RowNumber
                 }
               >
                 {rowIndex}
-              </td>{" "}
-              {/* Render numerical indices */}
+              </td>
               {alphabeticalIndices.map((columnIndex) => (
                 <Column key={columnIndex}>
                   <Cell cellid={`${columnIndex}${rowIndex}`}></Cell>

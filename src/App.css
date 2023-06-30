@@ -5,3 +5,9 @@
 html, body {
   font-size: 13px;
 }
+
+.parent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

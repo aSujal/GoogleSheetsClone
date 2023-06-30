@@ -50,9 +50,9 @@ const Cell: FunctionComponent<CellProps> = (props) => {
     dataset.cellId is different from the current cellid prop value. If they are different,
     it calls changeInputToLabel to switch the component to "label" mode.*/
   const onClickOutsideInputHandler = (event: MouseEvent) => {
-    if ((event.target as HTMLElement)?.dataset?.cellId !== props.cellid) {
-      changeInputToLabel();
+    if ((event.target as HTMLElement)?.dataset?.cellId === props.cellid) {
     } else {
+      changeInputToLabel();
     }
   };
 

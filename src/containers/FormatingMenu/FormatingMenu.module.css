@@ -1,0 +1,12 @@
+.menubox {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 50%;
+    border-radius: 25px;
+    width: 1000px;
+    background-color: #edf2fa;
+    margin: 10px;
+    padding: 8px;
+}
