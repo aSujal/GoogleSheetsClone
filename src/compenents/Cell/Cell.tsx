@@ -7,10 +7,11 @@ import {
   useRef,
   useState,
 } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import style from "./Cell.module.css";
 import { CellValueState } from "../../store/CellValueState";
 import { ActiveCellState } from "../../store/ActiveCellState";
+import { EvaluatedCellValueState } from "../../store/EvaluatedCellValueState";
 
 export const CELL_WIDTH = 100;
 export const CELL_HEIGHT = 20;
@@ -24,22 +25,26 @@ const Cell: FunctionComponent<CellProps> = (props) => {
     CellValueState(props.cellid)
   );
 
+  const evaluatedCellValueState = useRecoilValue<string>(
+    EvaluatedCellValueState(props.cellid)
+  );
+
+  //called on text change updates the state of the cell
+  const updateCellValueState = (event: ChangeEvent<HTMLInputElement>) =>
+    setCellValue(event.target.value);
+
   const [isEditMode, setIsEditMode] = useState(false);
-  const inputRef = useRef(null); //to set the reference using ref={inputRef} to this input object this allows for direct access to dom properties
+  //to set the reference using ref={inputRef} to this input object this allows for direct access to dom properties
+  const inputRef = useRef(null);
 
   const [act, setActiveCell] = useRecoilState(ActiveCellState);
 
   //functions to change from input to label and label to input
   const changeLabelToInput = () => {
     setIsEditMode(true);
-    setActiveCell(props.cellid);
-    console.log(act);
+    setActiveCell(props.cellid); //active cell to highlight ColumnHeader and RowNumber
   };
   const changeInputToLabel = () => setIsEditMode(false);
-
-  //called on text change updates the state of the cell
-  const updateCellValueState = (event: ChangeEvent<HTMLInputElement>) =>
-    setCellValue(event.target.value);
 
   /*It checks if the clicked element's 
     dataset.cellId is different from the current cellid prop value. If they are different,
@@ -51,6 +56,7 @@ const Cell: FunctionComponent<CellProps> = (props) => {
     }
   };
 
+  //If Enter Pressed
   const onDefocusInputHandler = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       setIsEditMode(false);
@@ -77,7 +83,7 @@ const Cell: FunctionComponent<CellProps> = (props) => {
       data-cell-id={props.cellid}
       onClick={changeLabelToInput}
     >
-      {cellValue} {/* value */}
+      {evaluatedCellValueState} {/* value */}
     </div>
   );
 };
