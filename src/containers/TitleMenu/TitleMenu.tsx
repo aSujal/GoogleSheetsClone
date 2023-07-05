@@ -87,9 +87,6 @@ const TitleMenu: FunctionComponent = () => {
             Save
           </button>
         </li>
-        <li>
-          <button className={style.MenuButton}> Load </button>
-        </li>
       </ul>
     </div>
   );
