@@ -5,16 +5,18 @@ import Cell, { CELL_HEIGHT, CELL_WIDTH } from "../Cell/Cell";
 import style from "./Sheet.module.css";
 import { useRecoilValue } from "recoil";
 import { ActiveCellState } from "../../store/ActiveCellState";
+import { CellValueState } from "../../store/CellValueState";
 
-export type SheetProps = {};
-
+export type SheetProps = {
+  cellValues?: string[][];
+};
+export const numberOfColumns = 26;
+export const numberOfRows = 30;
+export const alphabeticalIndices = Array.from(
+  { length: numberOfColumns },
+  (_, index) => String.fromCharCode(65 + index)
+);
 const Sheet: FunctionComponent<SheetProps> = (props) => {
-  const numberOfColumns = 26;
-  const numberOfRows = 30;
-  const alphabeticalIndices = Array.from(
-    { length: numberOfColumns },
-    (_, index) => String.fromCharCode(65 + index)
-  );
   const numericalIndices = Array.from({ length: numberOfRows }, (_, index) =>
     (index + 1).toString()
   );
