@@ -10,7 +10,7 @@ export type SheetProps = {};
 
 const Sheet: FunctionComponent<SheetProps> = (props) => {
   const numberOfColumns = 26;
-  const numberOfRows = 50;
+  const numberOfRows = 30;
   const alphabeticalIndices = Array.from(
     { length: numberOfColumns },
     (_, index) => String.fromCharCode(65 + index)

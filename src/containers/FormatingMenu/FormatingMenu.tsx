@@ -1,65 +1,38 @@
-import React, { ChangeEvent } from "react";
 import style from "./FormatingMenu.module.css";
+import {
+  RecoilState,
+  useRecoilState,
+  useRecoilValue,
+  useSetRecoilState,
+} from "recoil";
+import { ActiveCellState } from "../../store/ActiveCellState";
+import { CellBoldState } from "../../store/CellBoldState";
 
 const FormattingMenu = () => {
-  // State variables for formatting options
-  const [bold, setBold] = React.useState(false);
-  const [italic, setItalic] = React.useState(false);
-  const [fontSize, setFontSize] = React.useState("13px");
-  const [textColor, setTextColor] = React.useState("#000000");
-  const [cellColor, setCellColor] = React.useState("#ffffff");
+  const activeCell = useRecoilValue(ActiveCellState);
+  const setCellBoldState = useSetRecoilState(CellBoldState(activeCell));
+  const cellBoldState = useRecoilValue(CellBoldState(activeCell));
 
   // Event handlers for formatting options
   const handleBoldToggle = () => {
-    setBold((prevBold) => !prevBold);
-  };
-
-  const handleItalicToggle = () => {
-    setItalic((prevItalic) => !prevItalic);
-  };
-
-  const handleFontSizeChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setFontSize(event.target.value);
-  };
-
-  const handleTextColorChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setTextColor(event.target.value);
-  };
-
-  const handleCellColorChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setCellColor(event.target.value);
+    setCellBoldState((prevCellBoldState) => !prevCellBoldState);
+    console.log(cellBoldState);
   };
 
   return (
     <div className={style.menubox}>
-      <label>
-        <input type="checkbox" checked={bold} onChange={handleBoldToggle} />
-        Bold
-      </label>
-      <label>
-        <input type="checkbox" checked={italic} onChange={handleItalicToggle} />
-        Italic
-      </label>
-      <label>
-        Font Size:
-        <input type="text" value={fontSize} onChange={handleFontSizeChange} />
-      </label>
-      <label>
-        Text Color:
-        <input
-          type="color"
-          value={textColor}
-          onChange={handleTextColorChange}
-        />
-      </label>
-      <label>
-        Cell Color:
-        <input
-          type="color"
-          value={cellColor}
-          onChange={handleCellColorChange}
-        />
-      </label>
+      <ul>
+        <li>
+          <a
+            className={`${style.BoldButton} ${
+              cellBoldState ? style.Active : ""
+            }`}
+            onClick={handleBoldToggle}
+          >
+            B
+          </a>
+        </li>
+      </ul>
     </div>
   );
 };

@@ -1,0 +1,12 @@
+.MenuButton {
+    background-color: white;
+    padding: 5px 15px;
+    border: 1px solid rgb(221, 217, 217);
+    transition: all .3s;
+    margin: 0;
+}
+
+.MenuButton:hover {
+    background-color: black;
+    color: white;
+}

@@ -18,3 +18,7 @@
     overflow: hidden;
     text-align: left;
 }
+
+.Bold {
+    font-weight: bold;
+}

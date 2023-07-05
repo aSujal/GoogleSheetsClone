@@ -12,6 +12,7 @@ import style from "./Cell.module.css";
 import { CellValueState } from "../../store/CellValueState";
 import { ActiveCellState } from "../../store/ActiveCellState";
 import { EvaluatedCellValueState } from "../../store/EvaluatedCellValueState";
+import { CellBoldState } from "../../store/CellBoldState";
 
 export const CELL_WIDTH = 100;
 export const CELL_HEIGHT = 20;
@@ -24,6 +25,11 @@ const Cell: FunctionComponent<CellProps> = (props) => {
   const [cellValue, setCellValue] = useRecoilState<string>(
     CellValueState(props.cellid)
   );
+  const cellBoldState = useRecoilValue(CellBoldState(props.cellid));
+
+  // const [cellBoldState, setCellBoldState] = useRecoilState<boolean>(
+  //   CellBoldState()
+  // );
 
   const evaluatedCellValueState = useRecoilValue<string>(
     EvaluatedCellValueState(props.cellid)
@@ -79,8 +85,8 @@ const Cell: FunctionComponent<CellProps> = (props) => {
     />
   ) : (
     <div
-      className={style.CellLabel}
       data-cell-id={props.cellid}
+      className={`${style.CellLabel} ${cellBoldState ? style.Bold : ""}`}
       onClick={changeLabelToInput}
     >
       {evaluatedCellValueState} {/* value */}

@@ -10,3 +10,35 @@
     margin: 10px;
     padding: 8px;
 }
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    float: left;
+    text-align: center;
+}
+
+
+.BoldButton {
+    display: block;
+    background-color: #edf2fa;
+    text-align: center;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+
+}
+
+
+li a:hover {
+    background-color: #dbd9e2;
+}
+
+.Active {
+    background-color: #dbd9e2;
+}
