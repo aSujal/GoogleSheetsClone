@@ -1,11 +1,10 @@
-import React, { ComponentType, FunctionComponent, useState } from "react";
+import { FunctionComponent } from "react";
 import Row from "../Row/Row";
 import Column from "../Column/Column";
-import Cell, { CELL_HEIGHT, CELL_WIDTH } from "../Cell/Cell";
 import style from "./Sheet.module.css";
 import { useRecoilValue } from "recoil";
 import { ActiveCellState } from "../../store/ActiveCellState";
-import { CellValueState } from "../../store/CellValueState";
+import Cell from "../Cell/Cell";
 
 export type SheetProps = {
   cellValues?: string[][];

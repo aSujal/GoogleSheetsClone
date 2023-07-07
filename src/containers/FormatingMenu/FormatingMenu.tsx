@@ -1,10 +1,5 @@
 import style from "./FormatingMenu.module.css";
-import {
-  RecoilState,
-  useRecoilState,
-  useRecoilValue,
-  useSetRecoilState,
-} from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { ActiveCellState } from "../../store/ActiveCellState";
 import { CellBoldState } from "../../store/CellBoldState";
 
