@@ -2,6 +2,7 @@ import { selector } from "recoil";
 import { CellValueState } from "./CellValueState";
 import { memoize } from "../utils/memoize";
 import { evaluateEquation } from "../utils/EquationUtils";
+import { useState } from "react";
 
 export const EvaluatedCellValueState = (cellId: string) =>
   memoize(`evaluatedCell_${cellId}`, () =>
